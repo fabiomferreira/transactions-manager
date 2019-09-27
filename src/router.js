@@ -14,15 +14,9 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/transactions',
-      name: 'transactions',
-      children: [
-        {
-          path: 'new',
-          name: 'new-transaction',
-          component: () => import('./views/TransactionRegistration.vue'),
-        },
-      ],
+      path: '/new-transaction',
+      name: 'new-transaction',
+      component: () => import('./views/TransactionRegistration.vue'),
     },
   ],
 });

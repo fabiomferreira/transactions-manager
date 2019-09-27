@@ -5,6 +5,9 @@
         <span>Transaction Manager</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn text to="/new-transaction">Nova Transação</v-btn>
+      </v-toolbar-items>
     </v-app-bar>
 
     <v-content>
@@ -14,16 +17,8 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld,
-  },
-  data: () => ({
-    //
-  }),
 };
 </script>
 
@@ -33,9 +28,15 @@ $color-base-purple: #bc85f7;
 $color-base-pink: #e178d7;
 $color-button: #e078d6;
 
-$gradient: linear-gradient(to right, $color-base 0%, $color-base-purple 50%, $color-base-purple 51%, $color-base-pink 100%);
+$gradient: linear-gradient(
+  to right,
+  $color-base 0%,
+  $color-base-purple 50%,
+  $color-base-purple 51%,
+  $color-base-pink 100%
+  );
 
 .header-gradient {
-  background: $gradient
+  background: $gradient;
 }
 </style>
