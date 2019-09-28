@@ -39,4 +39,5 @@ $gradient: linear-gradient(
 .header-gradient {
   background: $gradient;
 }
+
 </style>

@@ -1,26 +1,34 @@
 <template>
   <v-container>
-    <v-layout
-      text-center
-      wrap
-    >
-      Nova Transação
+      <h1 class="headline">Nova Transação</h1>
       <v-form>
         <v-text-field
           v-model="transactionValue"
+          @input="formatMoney"
           label="Valor"
           :rules="valueRules"
+          color="blue darken-3"
           required
+          outlined
         ></v-text-field>
         <v-select
-        v-model="select"
-        :items="['Crédito', 'Débito']"
-        :rules="typeRules"
-        label="Operação"
-        required
-      ></v-select>
+          v-model="transactionType"
+          :items="['Crédito', 'Débito']"
+          :rules="typeRules"
+          label="Operação"
+          color="blue darken-3"
+          required
+          outlined
+        ></v-select>
+        <v-btn
+          @click="save"
+          block
+          color="purple accent-2"
+          dark
+        >
+          Salvar
+        </v-btn>
       </v-form>
-    </v-layout>
   </v-container>
 </template>
 
@@ -32,7 +40,22 @@ export default {
       transactionValue: '',
       valueRules: [v => !!v || 'Valor é obrigatório'],
       typeRules: [v => !!v || 'Tipo é obrigatório'],
-    })
+    }),
+    methods: {
+      formatMoney(eventValue) {
+        const value = eventValue
+        const onlyNumbersValue = value.replace(/\D/g, '') || '0'
+        const moneyValue = (parseFloat(onlyNumbersValue) / 100).toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+          minimumFractionDigits: 2
+        })
+        this.transactionValue = moneyValue
+      },
+      save() {
+        this.$router.push({name: 'home'})
+      },
+    }
 }
 </script>
 
