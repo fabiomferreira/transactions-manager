@@ -6,19 +6,51 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn text to="/new-transaction">Nova Transação</v-btn>
+        <v-btn
+          to="/new-transaction"
+          text
+          color="white"
+        >Nova Transação</v-btn>
       </v-toolbar-items>
     </v-app-bar>
 
     <v-content>
       <router-view />
     </v-content>
+    <v-snackbar
+      v-model="snackbar"
+      top
+    >
+      {{ getTextSnackbar }}
+      <v-btn
+        color="pink"
+        text
+        @click="closeSnackbar()"
+      >
+        Fechar
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex';
 export default {
   name: 'App',
+  computed: {
+    ...mapGetters(['getSnackbar', 'getTextSnackbar']),
+    snackbar: {
+      get() {
+        return this.getSnackbar
+      },
+      set() {
+        return this.closeSnackbar()
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['closeSnackbar'])
+  }
 };
 </script>
 
