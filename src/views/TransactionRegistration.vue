@@ -43,6 +43,7 @@
 <script>
 import {mapActions} from 'vuex';
 
+const locale = 'pt-BR';
 export default {
     name: 'TransactionRegistration',
     data: () => ({
@@ -57,7 +58,7 @@ export default {
       formatMoney(eventValue) {
         const value = eventValue
         const onlyNumbersValue = value.replace(/\D/g, '') || '0'
-        const moneyValue = (parseFloat(onlyNumbersValue) / 100).toLocaleString('pt-BR', {
+        const moneyValue = (parseFloat(onlyNumbersValue) / 100).toLocaleString(locale, {
           minimumFractionDigits: 2
         })
         this.transactionValue = moneyValue
@@ -71,6 +72,7 @@ export default {
           let transactions = JSON.parse(localStorage.getItem('transactions')) || []
           transactions = [
             {
+              date: new Date().toLocaleString(locale),
               value: this.transactionValue, 
               type: this.transactionType
             },
