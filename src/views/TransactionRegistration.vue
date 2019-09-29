@@ -24,7 +24,6 @@
         <v-btn
           @click="$router.go(-1)"
           block
-          dark
         >
           Voltar
         </v-btn>
@@ -50,7 +49,14 @@ export default {
       valid: false,
       transactionType: null,
       transactionValue: '',
-      valueRules: [v => !!v || 'Valor é obrigatório'],
+      valueRules: [
+        v => !!v || 'Valor é obrigatório',
+        v => parseFloat(
+          v
+          .replace('.', '')
+          .replace(',', '.')
+        ) > 0 || 'Valor deve ser acima de R$ 0,00'
+      ],
       typeRules: [v => !!v || 'Tipo é obrigatório'],
     }),
     methods: {
@@ -61,11 +67,13 @@ export default {
         const moneyValue = (parseFloat(onlyNumbersValue) / 100).toLocaleString(locale, {
           minimumFractionDigits: 2
         })
-        this.transactionValue = moneyValue
+        this.$nextTick(() => 
+          this.transactionValue = moneyValue
+        )
       },
       save() {
         if(!this.valid) {
-          this.openSnackbar('Existem campos inválidos ou obrigatórios')
+          this.openSnackbar('Campo obrigatórios não foram preenchidos corretamente.')
           return;
         }
         try {
