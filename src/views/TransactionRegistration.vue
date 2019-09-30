@@ -63,7 +63,7 @@ export default {
         v => !!v || 'Valor é obrigatório',
         v => parseFloat(
           v
-          .replace('.', '')
+          .replace(/\./g, '')
           .replace(',', '.')
         ) > 0 || 'Valor deve ser acima de R$ 0,00'
       ],

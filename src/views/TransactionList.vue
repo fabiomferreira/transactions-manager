@@ -1,7 +1,7 @@
 <template>
   <v-container>
       <h1 class="headline">Transações</h1>
-       <v-simple-table v-if="!!transactions.length">
+       <v-simple-table v-if="!!transactions.length" class="mb-12">
             <template v-slot:default>
                 <thead>
                     <tr>
@@ -45,13 +45,15 @@ export default {
     created() {
         this.transactions = JSON.parse(localStorage.getItem('transactions')) || []
         this.calculateBalance()
-        console.log(this.balance > 0)
     },
     methods: {
         calculateBalance() {
             let total = 0
             this.transactions.forEach(transaction => {
-                const value = parseFloat(transaction.value.replace('.', '').replace(',', '.'))
+                const value = parseFloat(
+                    transaction.value.replace(/\./g, '').replace(',', '.')
+                )
+                console.log(value)
                 if(transaction.type === CREDITO) {
                     total += value
                 } else {
