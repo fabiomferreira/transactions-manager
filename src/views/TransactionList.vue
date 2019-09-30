@@ -24,21 +24,63 @@
            Clique em <strong>Nova Transação</strong> no canto superior 
            direito para adicionar uma nova transação
         </v-alert>
+        <section class="saldo" :class="{red: onRed}">
+            <strong>Saldo: </strong>
+            <span>{{this.balance}}</span>
+        </section>
   </v-container>
 </template>
 
 <script>
+const CREDITO = 1
+const DEBITO = 2
+
 export default {
     name: 'TransactionList',
     data: () => ({
-        transactions: []
+        transactions: [],
+        balance: 'R$ 0,00',
+        onRed: false
     }),
     created() {
         this.transactions = JSON.parse(localStorage.getItem('transactions')) || []
+        this.calculateBalance()
+        console.log(this.balance > 0)
+    },
+    methods: {
+        calculateBalance() {
+            let total = 0
+            this.transactions.forEach(transaction => {
+                const value = parseFloat(transaction.value.replace('.', '').replace(',', '.'))
+                if(transaction.type === CREDITO) {
+                    total += value
+                } else {
+                    total -= value
+                }
+            });
+            this.onRed = total < 0
+            this.balance = total.toLocaleString('pt-BR', {
+                currency: 'BRL',
+                style: 'currency',
+                maximumFractionDigits: 2
+            })
+        }
     }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import "../assets/styles/styles";
+.saldo {
+    background: $color-base;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    font-size: 24px;
+}
 </style>

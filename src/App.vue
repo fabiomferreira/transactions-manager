@@ -17,6 +17,7 @@
     <v-content>
       <router-view />
     </v-content>
+
     <v-snackbar
       v-model="snackbar"
       top
@@ -55,10 +56,7 @@ export default {
 </script>
 
 <style lang="scss">
-$color-base: #159ce4;
-$color-base-purple: #bc85f7;
-$color-base-pink: #e178d7;
-$color-button: #e078d6;
+@import "./assets/styles/styles";
 
 $gradient: linear-gradient(
   to right,
