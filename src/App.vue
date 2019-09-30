@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app class="header-gradient">
-      <v-toolbar-title class="headline text-uppercase white--text">
+      <v-toolbar-title class="white--text page-title">
         <span>Transaction Manager</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -68,6 +68,9 @@ $gradient: linear-gradient(
   $color-base-pink 100%
   );
 
+.page-title {
+  font-family: 'Coiny';
+}
 .header-gradient {
   background: $gradient;
 }

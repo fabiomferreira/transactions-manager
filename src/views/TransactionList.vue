@@ -1,7 +1,7 @@
 <template>
   <v-container>
-      <h1 class="headline">Lista de Transações</h1>
-       <v-simple-table>
+      <h1 class="headline">Transações</h1>
+       <v-simple-table v-if="!!transactions.length">
             <template v-slot:default>
                 <thead>
                     <tr>
@@ -14,11 +14,16 @@
                     <tr v-for="(transaction, key) in transactions" :key="key">
                         <td>{{transaction.date}}</td>
                         <td>R$ {{transaction.value}}</td>
-                        <td>{{transaction.type}}</td>
+                        <td>{{transaction.type === 1 ? 'Crédito' : 'Débito' }}</td>
                     </tr>
                 </tbody>
             </template>
        </v-simple-table>
+       <v-alert v-else type="info">
+           <strong>Você ainda não possui nenhuma transação.</strong>
+           Clique em <strong>Nova Transação</strong> no canto superior 
+           direito para adicionar uma nova transação
+        </v-alert>
   </v-container>
 </template>
 
@@ -29,7 +34,7 @@ export default {
         transactions: []
     }),
     created() {
-        this.transactions = JSON.parse(localStorage.getItem('transactions'))
+        this.transactions = JSON.parse(localStorage.getItem('transactions')) || []
     }
 }
 </script>

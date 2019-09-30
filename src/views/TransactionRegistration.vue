@@ -14,7 +14,7 @@
         ></v-text-field>
         <v-select
           v-model="transactionType"
-          :items="['Crédito', 'Débito']"
+          :items="transactionTypes"
           :rules="typeRules"
           label="Operação"
           color="blue darken-3"
@@ -49,6 +49,16 @@ export default {
       valid: false,
       transactionType: null,
       transactionValue: '',
+      transactionTypes: [
+        {
+          text: 'Crédito',
+          value: 1
+        },
+        {
+          text: 'Débito',
+          value: 2
+        },
+      ],
       valueRules: [
         v => !!v || 'Valor é obrigatório',
         v => parseFloat(
